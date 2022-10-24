@@ -3,6 +3,7 @@ import 'package:dose_calculator_for_vets/domain/usecases/calculations/get_calcul
 import 'package:dose_calculator_for_vets/domain/usecases/locale/get_locale_use_case.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/themes/change_theme_use_case.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/themes/get_theme_use_case.dart';
+import 'package:dose_calculator_for_vets/domain/usecases/url_launcher/launch_url_use_case.dart';
 
 import '../domain/usecases/calculations/save_calculation_use_case.dart';
 import '../domain/usecases/locale/change_locale_use_case.dart';
@@ -29,5 +30,8 @@ void initUseCases() {
   );
   di.registerLazySingleton(
     () => DeleteCalculationUseCase(di()),
+  );
+  di.registerLazySingleton(
+    () => LaunchUrlUseCase(di()),
   );
 }

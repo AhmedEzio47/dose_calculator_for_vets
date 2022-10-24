@@ -24,4 +24,6 @@ class TranslationKeys {
   static const String history = 'history';
   static const String noData = 'noData';
   static const String enterDescription = 'enterDescription';
+  static const String donate = 'donate';
+  static const String reviewApp = 'reviewApp';
 }

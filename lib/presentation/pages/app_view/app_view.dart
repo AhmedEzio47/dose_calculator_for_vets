@@ -1,3 +1,4 @@
+import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/url_launcher/url_launcher_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/bloc/calculator_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,9 @@ class AppView extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di<CalculatorBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di<UrlLauncherBloc>(),
         ),
       ],
       child: BlocBuilder<LocaleBloc, LocaleState>(

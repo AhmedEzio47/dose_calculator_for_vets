@@ -22,5 +22,7 @@
   "savedSuccessfully" : "Saved successfully",
   "errorSavingCalculation" : "An error occurred while saving calculation",
   "history" : "History",
-  "noData" : "There is no data to be shown"
+  "noData" : "There is no data to be shown",
+  "donate" : "Donate",
+  "reviewApp" : "Review app"
 }
