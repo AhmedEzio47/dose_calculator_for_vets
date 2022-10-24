@@ -4,7 +4,7 @@ class AppColors {
   static const Color primaryColor = Color(0xff215C58);
   static const darkText = Colors.black;
   static const lightText = Colors.white;
-  static const lightBackground = Color(0xffF1F2F3);
+  static const lightBackground = Colors.white;
   static const lightDivider = Color(0xff555555);
   static const lightCard = Color(0xffe6e6e6);
   static const lightBottomNavBar = Color(0xffe6e6e6);
