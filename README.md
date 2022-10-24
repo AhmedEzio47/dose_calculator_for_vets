@@ -1,6 +1,6 @@
 # dose_calculator_for_vets
 
-Dose Calculator for Vets
+A simple app to calculate the dose of any drug with just a few clicks.
 
 ## Getting Started
 
