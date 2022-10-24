@@ -1,3 +1,4 @@
+import 'package:dose_calculator_for_vets/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
@@ -25,14 +26,25 @@ class Themes {
 
   static ThemeData buildDarkTheme(BuildContext context,
       [String fontFamily = 'Roboto']) {
+    const iconTheme = IconThemeData(color: AppColors.lightText);
+    final appBarTheme = AppBarTheme(
+        color: AppColors.primaryColor,
+        iconTheme: iconTheme,
+        centerTitle: true,
+        toolbarTextStyle: TextStyles.semiBold
+            .copyWith(fontSize: 18, color: AppColors.lightText),
+        titleTextStyle: TextStyles.semiBold
+            .copyWith(fontSize: 18, color: AppColors.lightText));
     return ThemeData.dark().copyWith(
       primaryColor: AppColors.primaryColor,
-      appBarTheme: _appBarTheme,
+      appBarTheme: appBarTheme,
+      iconTheme: iconTheme,
       scaffoldBackgroundColor: AppColors.darkBackground,
       buttonTheme: _buttonTheme(context),
       elevatedButtonTheme: _elevatedButtonTheme,
       cardColor: AppColors.darkCard,
-      drawerTheme: const DrawerThemeData(backgroundColor: AppColors.darkCard),
+      drawerTheme:
+          const DrawerThemeData(backgroundColor: AppColors.darkBackground),
       sliderTheme: _sliderTheme,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: AppColors.darkBottomNavBar),
@@ -43,14 +55,25 @@ class Themes {
 
   static ThemeData buildLightTheme(BuildContext context,
       [String fontFamily = 'Roboto']) {
+    const iconTheme = IconThemeData(color: AppColors.primaryColor);
+    final appBarTheme = AppBarTheme(
+        color: AppColors.primaryColor,
+        centerTitle: true,
+        iconTheme: iconTheme,
+        toolbarTextStyle: TextStyles.semiBold
+            .copyWith(fontSize: 18, color: AppColors.lightText),
+        titleTextStyle: TextStyles.semiBold
+            .copyWith(fontSize: 18, color: AppColors.darkText));
     return ThemeData.light().copyWith(
       primaryColor: AppColors.primaryColor,
-      appBarTheme: _appBarTheme,
+      appBarTheme: appBarTheme,
       scaffoldBackgroundColor: AppColors.lightBackground,
       buttonTheme: _buttonTheme(context),
       elevatedButtonTheme: _elevatedButtonTheme,
       cardColor: AppColors.lightCard,
-      drawerTheme: const DrawerThemeData(backgroundColor: AppColors.lightCard),
+      iconTheme: iconTheme,
+      drawerTheme:
+          const DrawerThemeData(backgroundColor: AppColors.lightBackground),
       sliderTheme: _sliderTheme,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.lightBottomNavBar,
@@ -60,7 +83,6 @@ class Themes {
     );
   }
 
-  static const _appBarTheme = AppBarTheme(color: AppColors.primaryColor);
   static const _sliderTheme = SliderThemeData(
     activeTrackColor: AppColors.primaryColor,
     thumbColor: AppColors.primaryColor,

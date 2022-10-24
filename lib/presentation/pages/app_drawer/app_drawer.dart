@@ -17,9 +17,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      width: MediaQuery.of(context).size.width * .7,
+    return Drawer(
       child: Column(
         children: [
           Padding(

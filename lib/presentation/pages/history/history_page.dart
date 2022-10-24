@@ -18,7 +18,6 @@ class HistoryPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -28,7 +27,11 @@ class HistoryPage extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(AppLocalizations.instance.translate(TranslationKeys.history)),
+            Text(
+              AppLocalizations.instance.translate(
+                TranslationKeys.history,
+              ),
+            ),
           ],
         ),
       ),
