@@ -26,4 +26,7 @@ class TranslationKeys {
   static const String enterDescription = 'enterDescription';
   static const String donate = 'donate';
   static const String reviewApp = 'reviewApp';
+  static const String recalculate = 'recalculate';
+  static const String delete = 'delete';
+  static const String changeMassUnit = 'changeMassUnit';
 }

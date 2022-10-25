@@ -11,6 +11,7 @@ import 'package:dose_calculator_for_vets/presentation/widgets/general_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../app_view/blocs/units/units_bloc.dart';
 import 'bloc/calculator_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,110 +57,119 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: BlocListener<CalculatorBloc, CalculatorState>(
-          listenWhen: (prev, current) =>
-              prev.status != current.status ||
-              prev.calculation != current.calculation,
-          listener: (context, state) {
-            if (state.status == BlocStatus.success) {
-              _concentrationController.clear();
-              _quantityController.clear();
-              _dosePerUnitMassController.clear();
-              _animalMassController.clear();
-              if (state.finalDose != null) {
-                AppDialog.show(
-                    context: context,
-                    child: ResultDialog(finalDose: state.finalDose!));
-              }
-            } else if (state.status == BlocStatus.failure) {
-              AppSnackBar.show(
-                  context: context,
-                  message: state.failureMessage,
-                  snackBarType: SnackBarTypes.error);
-            }
+        child: BlocBuilder<UnitsBloc, UnitsState>(
+          builder: (context, unitsState) {
+            return BlocListener<CalculatorBloc, CalculatorState>(
+              listenWhen: (prev, current) =>
+                  prev.status != current.status ||
+                  prev.calculation != current.calculation,
+              listener: (context, state) {
+                if (state.status == BlocStatus.success) {
+                  _concentrationController.clear();
+                  _quantityController.clear();
+                  _dosePerUnitMassController.clear();
+                  _animalMassController.clear();
+                  if (state.finalDose != null) {
+                    AppDialog.show(
+                        context: context,
+                        child: ResultDialog(finalDose: state.finalDose!));
+                  }
+                } else if (state.status == BlocStatus.failure) {
+                  AppSnackBar.show(
+                      context: context,
+                      message: state.failureMessage,
+                      snackBarType: SnackBarTypes.error);
+                }
 
-            if (state.calculation != null) {
-              _concentrationController.text =
-                  state.calculation!.concentration.toString();
-              _quantityController.text = state.calculation!.quantity.toString();
-              _dosePerUnitMassController.text =
-                  state.calculation!.dosePerUnitMass.toString();
-              _animalMassController.text =
-                  state.calculation!.animalMass.toString();
-              setState(() {});
-            }
+                if (state.calculation != null) {
+                  _concentrationController.text =
+                      state.calculation!.concentration.toString();
+                  _quantityController.text =
+                      state.calculation!.quantity.toString();
+                  _dosePerUnitMassController.text =
+                      state.calculation!.dosePerUnitMass.toString();
+                  _animalMassController.text =
+                      state.calculation!.animalMass.toString();
+                  setState(() {});
+                }
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const HomeHeader(),
+                    EditField(
+                      focusNode: _focusNodes[0],
+                      controller: _concentrationController,
+                      inputAction: TextInputAction.next,
+                      hint: '',
+                      label: AppLocalizations.instance
+                          .translate(TranslationKeys.drugConcentration),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) {
+                        _focusNodes[1].requestFocus();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    EditField(
+                      focusNode: _focusNodes[1],
+                      controller: _quantityController,
+                      inputAction: TextInputAction.next,
+                      hint: '',
+                      label: AppLocalizations.instance
+                          .translate(TranslationKeys.quantity),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) {
+                        _focusNodes[2].requestFocus();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    EditField(
+                      focusNode: _focusNodes[2],
+                      controller: _dosePerUnitMassController,
+                      inputAction: TextInputAction.next,
+                      hint: '',
+                      label: AppLocalizations.instance.translate(
+                        TranslationKeys.dosePerUnitMass,
+                        param1: unitsState.toString(),
+                      ),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) {
+                        _focusNodes[3].requestFocus();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    EditField(
+                      focusNode: _focusNodes[3],
+                      controller: _animalMassController,
+                      inputAction: TextInputAction.done,
+                      hint: '',
+                      label: AppLocalizations.instance.translate(
+                        TranslationKeys.animalMass,
+                        param1: unitsState.toString(),
+                      ),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) => _calculate(context),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    GeneralBtn(
+                      onPressed: () => _calculate(context),
+                      text: AppLocalizations.instance
+                          .translate(TranslationKeys.calculate),
+                    )
+                  ],
+                ),
+              ),
+            );
           },
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const HomeHeader(),
-                EditField(
-                  focusNode: _focusNodes[0],
-                  controller: _concentrationController,
-                  inputAction: TextInputAction.next,
-                  hint: '',
-                  label: AppLocalizations.instance
-                      .translate(TranslationKeys.drugConcentration),
-                  inputType: TextInputType.number,
-                  onSubmit: (val) {
-                    _focusNodes[1].requestFocus();
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                EditField(
-                  focusNode: _focusNodes[1],
-                  controller: _quantityController,
-                  inputAction: TextInputAction.next,
-                  hint: '',
-                  label: AppLocalizations.instance
-                      .translate(TranslationKeys.quantity),
-                  inputType: TextInputType.number,
-                  onSubmit: (val) {
-                    _focusNodes[2].requestFocus();
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                EditField(
-                  focusNode: _focusNodes[2],
-                  controller: _dosePerUnitMassController,
-                  inputAction: TextInputAction.next,
-                  hint: '',
-                  label: AppLocalizations.instance
-                      .translate(TranslationKeys.dosePerUnitMass),
-                  inputType: TextInputType.number,
-                  onSubmit: (val) {
-                    _focusNodes[3].requestFocus();
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                EditField(
-                  focusNode: _focusNodes[3],
-                  controller: _animalMassController,
-                  inputAction: TextInputAction.done,
-                  hint: '',
-                  label: AppLocalizations.instance
-                      .translate(TranslationKeys.animalMass),
-                  inputType: TextInputType.number,
-                  onSubmit: (val) => _calculate(context),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                GeneralBtn(
-                  onPressed: () => _calculate(context),
-                  text: AppLocalizations.instance
-                      .translate(TranslationKeys.calculate),
-                )
-              ],
-            ),
-          ),
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../../core/constants/text_styles.dart';
+import '../../app_view/blocs/units/units_bloc.dart';
 import '../../home/bloc/calculator_bloc.dart';
 
 class HistoryItem extends StatelessWidget {
@@ -30,7 +31,8 @@ class HistoryItem extends StatelessWidget {
             backgroundColor: AppColors.primaryColor,
             foregroundColor: Colors.white,
             icon: Icons.restart_alt,
-            label: 'Recalculate',
+            label: AppLocalizations.instance
+                .translate(TranslationKeys.recalculate),
           ),
           SlidableAction(
             // An action can be bigger than the others.
@@ -39,49 +41,74 @@ class HistoryItem extends StatelessWidget {
             backgroundColor: AppColors.errorColor,
             foregroundColor: Colors.white,
             icon: Icons.delete,
-            label: 'Delete',
+            label: AppLocalizations.instance.translate(TranslationKeys.delete),
           ),
         ],
       ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: BlocBuilder<UnitsBloc, UnitsState>(
+        builder: (context, state) {
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
                 children: [
-                  if (calculation.description != null)
-                    Text(
-                      '${calculation.description}',
-                      style: TextStyles.semiBold.copyWith(fontSize: 18),
-                    ),
-                  if (calculation.description != null)
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  Text(
-                      '${AppLocalizations.instance.translate(TranslationKeys.drugConcentration)}: ${calculation.concentration}'),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                      '${AppLocalizations.instance.translate(TranslationKeys.quantity)}: ${calculation.quantity}'),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                      '${AppLocalizations.instance.translate(TranslationKeys.dosePerUnitMass)}: ${calculation.dosePerUnitMass}'),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                      '${AppLocalizations.instance.translate(TranslationKeys.animalMass)}: ${calculation.animalMass}'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (calculation.description != null)
+                        Text(
+                          '${calculation.description}',
+                          style: TextStyles.semiBold.copyWith(fontSize: 20),
+                        ),
+                      if (calculation.description != null)
+                        const SizedBox(
+                          height: 5,
+                        ),
+                      Text(
+                        '${AppLocalizations.instance.translate(TranslationKeys.drugConcentration)}: ${calculation.concentration}',
+                        style: TextStyles.regular.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '${AppLocalizations.instance.translate(TranslationKeys.quantity)}: ${calculation.quantity}',
+                        style: TextStyles.regular.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '${AppLocalizations.instance.translate(
+                          TranslationKeys.dosePerUnitMass,
+                          param1: state.toString(),
+                        )}: ${calculation.dosePerUnitMass}',
+                        style: TextStyles.regular.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '${AppLocalizations.instance.translate(TranslationKeys.animalMass, param1: state.toString())}: ${calculation.animalMass}',
+                        style: TextStyles.regular.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '${AppLocalizations.instance.translate(
+                          TranslationKeys.finalDose,
+                          param1: state.toString(),
+                        )}: ${context.read<CalculatorBloc>().calculate(calculation)}',
+                        style: TextStyles.regular.copyWith(fontSize: 16),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-        ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

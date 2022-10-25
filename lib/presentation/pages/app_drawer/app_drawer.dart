@@ -5,6 +5,7 @@ import 'package:dose_calculator_for_vets/core/constants/app_constants.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_drawer/widgets/drawer_item.dart';
+import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/url_launcher/url_launcher_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,19 @@ class AppDrawer extends StatelessWidget {
             },
             icon: Icons.book,
             text: AppLocalizations.instance.translate(TranslationKeys.history),
+          ),
+          const Divider(),
+          BlocBuilder<UnitsBloc, UnitsState>(
+            builder: (context, state) {
+              return DrawerItem(
+                onTap: () =>
+                    context.read<UnitsBloc>().add(MassUnitChangedEvent()),
+                icon: Icons.switch_left,
+                text: AppLocalizations.instance.translate(
+                    TranslationKeys.changeMassUnit,
+                    param1: state.toString()),
+              );
+            },
           ),
           const Divider(),
           DrawerItem(

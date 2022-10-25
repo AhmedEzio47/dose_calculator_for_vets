@@ -35,8 +35,9 @@ class AppLocalizations {
     return true;
   }
 
-  String translate(dynamic key, {String param1 = ''}) {
-    return (_localizedMap[key] ?? key).replaceAll('{PARAM1}', param1);
+  String translate(dynamic key, {String param1 = '', String param2 = ''}) {
+    String result = (_localizedMap[key] ?? key).replaceAll('{PARAM1}', param1);
+    return result.replaceAll('{PARAM2}', param2);
   }
 
   static AppLocalizations? of(BuildContext context) {

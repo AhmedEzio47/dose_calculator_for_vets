@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:dose_calculator_for_vets/core/constants/app_constants.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
+import 'package:dose_calculator_for_vets/core/utils/converters.dart';
 import 'package:dose_calculator_for_vets/domain/entities/calculation_entity.dart';
+import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 
 import '../../../../core/constants/enums.dart';
 import '../../../../core/exceptions.dart';
@@ -18,17 +21,19 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     on<RecalculateEvent>(_onRecalculateEvent);
   }
 
-  _onRecalculateEvent(RecalculateEvent event, emit) {
+  void _onRecalculateEvent(RecalculateEvent event, emit) {
     lastCalculation = event.calculation;
     emit(state.copyWith(calculation: event.calculation));
   }
 
-  _onSaveCalculationEvent(SaveCalculationEvent event, emit) async {
-    lastCalculation.copyWith(
+  void _onSaveCalculationEvent(SaveCalculationEvent event, emit) async {
+    lastCalculation = lastCalculation.copyWith(
         description:
             event.description?.isEmpty ?? true ? null : event.description);
-    final result =
-        await saveCalculationUseCase(SaveCalculationParams(lastCalculation));
+    final result = await saveCalculationUseCase(SaveCalculationParams(
+        AppConstants.massUnit == MassUnitValues.kg
+            ? lastCalculation
+            : Converters.convertLbCalToKgCal(lastCalculation)));
     result.fold(
       (failure) => emit(CalculatorState(
           status: BlocStatus.failure,
@@ -41,7 +46,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   }
 
   late CalculationEntity lastCalculation;
-  _onCalculateEvent(CalculateEvent event, emit) {
+  void _onCalculateEvent(CalculateEvent event, emit) {
     emit(state.copyWith(status: BlocStatus.loading));
     late num finalDose;
     try {
@@ -64,7 +69,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         animalMass: animalMass,
       );
 
-      finalDose = (quantity * dosePerUnitMass * animalMass) / concentration;
+      finalDose = calculate(lastCalculation);
       emit(CalculatorState(
           status: BlocStatus.success, finalDose: finalDose.toStringAsFixed(2)));
     } on FormatException {
@@ -78,5 +83,13 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           failureMessage:
               AppLocalizations.instance.translate(TranslationKeys.emptyInput)));
     }
+  }
+
+  num calculate(CalculationEntity calculation) {
+    var finalDose = (calculation.quantity *
+            calculation.dosePerUnitMass *
+            calculation.animalMass) /
+        calculation.concentration;
+    return finalDose;
   }
 }

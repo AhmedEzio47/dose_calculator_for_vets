@@ -1,3 +1,4 @@
+import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/url_launcher/url_launcher_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/bloc/calculator_bloc.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ import 'blocs/theme/theme_bloc.dart';
 
 class AppView extends StatelessWidget {
   const AppView({Key? key}) : super(key: key);
-
+  // late BuildContext currentContext;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -32,6 +33,10 @@ class AppView extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di<UrlLauncherBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di<UnitsBloc>()..add(MassUnitCachedRequestedEvent()),
+          lazy: false,
         ),
       ],
       child: BlocBuilder<LocaleBloc, LocaleState>(
@@ -53,6 +58,12 @@ class AppView extends StatelessWidget {
                 localizationsDelegates: localizationDelegates,
                 localeResolutionCallback: getSelectedLang,
                 supportedLocales: supportedLocale,
+                // builder: (context, child) {
+                //   // currentContext = context;
+                //
+                //   return MultiBlocListener(
+                //       listeners: [], child: child ?? Container());
+                // },
               );
             },
           );

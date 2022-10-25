@@ -1,5 +1,5 @@
-import 'package:dose_calculator_for_vets/data/data_sources/local/storage/storage_data_source.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dose_calculator_for_vets/data/data_sources/local/storage/storage_data_source.dart';
 
 import '../../core/failures.dart';
 import '../../domain/repositories/settings_repo.dart';
@@ -45,6 +45,26 @@ class SettingsRepoImpl implements SettingsRepo {
     try {
       final theme = await storageDataSource.read(StorageKeys.theme);
       return Right(theme);
+    } catch (e) {
+      return Left(CacheFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> changeMassUnit(String unit) async {
+    try {
+      await storageDataSource.write(value: unit, key: StorageKeys.massUnit);
+      return const Right(null);
+    } catch (e) {
+      return Left(CacheFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>> getMassUnit() async {
+    try {
+      final unit = await storageDataSource.read(StorageKeys.massUnit);
+      return Right(unit);
     } catch (e) {
       return Left(CacheFailure());
     }

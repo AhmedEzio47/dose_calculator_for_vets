@@ -34,7 +34,7 @@ class SaveCalculationDialog extends StatelessWidget {
         child: Dialog(
           child: Container(
             padding: const EdgeInsets.all(16),
-            width: 330,
+            width: 370,
             height: 180,
             decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,

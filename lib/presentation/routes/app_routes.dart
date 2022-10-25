@@ -21,7 +21,7 @@ class AppRoutes {
 
     switch (_currentRoute) {
       case AppRoutes.home:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case AppRoutes.history:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(

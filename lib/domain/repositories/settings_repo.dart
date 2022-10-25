@@ -8,4 +8,7 @@ abstract class SettingsRepo {
 
   Future<Either<Failure, String?>> getTheme();
   Future<Either<Failure, void>> changeTheme(String theme);
+
+  Future<Either<Failure, String?>> getMassUnit();
+  Future<Either<Failure, void>> changeMassUnit(String unit);
 }
