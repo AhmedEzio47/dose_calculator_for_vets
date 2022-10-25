@@ -46,7 +46,7 @@ class SaveCalculationDialog extends StatelessWidget {
                     controller: _controller,
                     lines: 2,
                     hint: AppLocalizations.instance
-                        .translate(TranslationKeys.description)),
+                        .translate(TranslationKeys.enterDescription)),
                 const SizedBox(
                   height: 24,
                 ),
