@@ -16,12 +16,15 @@ If you switch the app theme or units, you may opt-in to saving your preference i
 We don't share any personal data
 
 ## Where we send your data
-Users' calculations data is only saved in their local storage, we don't send it anywhere
+Users' calculations data ar only saved in their local storage, we don't send it anywhere
 
 ## What third parties we receive data from
 The app does not use any third parties to get data from, but may use in the future to bring more features and improvements
 
 ## What automated decision making and/or profiling we do with user data
 We do not use automated decision-making.
+
+## Embedded content from other websites
+The user may choose to donate to us using a PayPal link in the drawer, the user may also choose to review our app using a link to the PlayStore page in the drawer
 
 
