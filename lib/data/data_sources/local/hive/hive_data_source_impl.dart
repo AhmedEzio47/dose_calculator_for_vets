@@ -12,13 +12,13 @@ class HiveDataSourceImpl implements HiveDataSource {
   }
 
   @override
-  Future<void> putInBox(String boxName, dynamic something) async {
+  Future<void> putInBox(String boxName, Map something) async {
     final Box box = await _openBox(boxName);
     await box.add(something);
   }
 
   @override
-  Future<dynamic> get(String boxName, int index) async {
+  Future<Map> get(String boxName, int index) async {
     final Box box = await _openBox(boxName);
     return box.getAt(index);
   }
@@ -31,17 +31,20 @@ class HiveDataSourceImpl implements HiveDataSource {
 
   @override
   Future<List> getAll(String boxName) async {
-    List all = [];
+    List<Map> all = [];
     final Box box = await _openBox(boxName);
     for (int i = 0; i < box.length; i++) {
-      all.add(await get(boxName, i));
+      Map item = await get(boxName, i);
+      List keys = box.keys.toList();
+      item.putIfAbsent('id', () => keys[i]);
+      all.add(item);
     }
     return all;
   }
 
   @override
-  Future<void> delete(String boxName, int index) async {
+  Future<void> delete(String boxName, int id) async {
     final Box box = await _openBox(boxName);
-    await box.deleteAt(index);
+    await box.delete(id);
   }
 }

@@ -16,6 +16,7 @@ class CalculationsRepoImpl implements CalculationsRepo {
   Future<Either<Failure, void>> save(CalculationEntity calculation) async {
     try {
       CalculationModel model = CalculationModel(
+        id: null,
         concentration: calculation.concentration,
         quantity: calculation.quantity,
         dosePerUnitMass: calculation.dosePerUnitMass,
@@ -44,9 +45,9 @@ class CalculationsRepoImpl implements CalculationsRepo {
   }
 
   @override
-  Future<Either<Failure, void>> delete(int index) async {
+  Future<Either<Failure, void>> delete(int id) async {
     try {
-      await hiveDataSource.delete(HiveConstants.calculationBox, index);
+      await hiveDataSource.delete(HiveConstants.calculationBox, id);
       return const Right(null);
     } catch (ex) {
       return Left(CacheFailure(message: ex.toString()));

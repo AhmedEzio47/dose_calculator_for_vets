@@ -63,6 +63,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       final num animalMass = num.parse(event.animalMass);
 
       lastCalculation = CalculationEntity(
+        id: null,
         concentration: concentration,
         quantity: quantity,
         dosePerUnitMass: dosePerUnitMass,

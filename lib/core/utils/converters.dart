@@ -19,6 +19,7 @@ class Converters {
 
   static CalculationEntity convertKgCalToLbCal(CalculationEntity cal) {
     return CalculationEntity(
+      id: cal.id,
       concentration: cal.concentration,
       quantity: cal.quantity,
       dosePerUnitMass: convertMgPerKgToMgPerLb(cal.dosePerUnitMass),
@@ -29,6 +30,7 @@ class Converters {
 
   static CalculationEntity convertLbCalToKgCal(CalculationEntity cal) {
     return CalculationEntity(
+      id: cal.id,
       concentration: cal.concentration,
       quantity: cal.quantity,
       dosePerUnitMass: convertMgPerLbToMgPerKg(cal.dosePerUnitMass),

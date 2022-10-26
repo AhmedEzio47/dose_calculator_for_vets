@@ -9,12 +9,12 @@ class DeleteCalculationUseCase extends UseCase<void, DeleteCalculationParams> {
   DeleteCalculationUseCase(this.calculationsRepo);
   @override
   Future<Either<Failure, void>> call(DeleteCalculationParams params) async {
-    return await calculationsRepo.delete(params.index);
+    return await calculationsRepo.delete(params.id);
   }
 }
 
 class DeleteCalculationParams {
-  final int index;
+  final int id;
 
-  DeleteCalculationParams(this.index);
+  DeleteCalculationParams(this.id);
 }

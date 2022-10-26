@@ -51,9 +51,8 @@ class HistoryPage extends StatelessWidget {
                   itemCount: state.calculations.length,
                   itemBuilder: (_, index) => HistoryItem(
                         calculation: state.calculations[index],
-                        onDelete: () => context
-                            .read<HistoryBloc>()
-                            .add(DeleteItemEvent(index)),
+                        onDelete: () => context.read<HistoryBloc>().add(
+                            DeleteItemEvent(state.calculations[index].id!)),
                       )));
         },
       ),

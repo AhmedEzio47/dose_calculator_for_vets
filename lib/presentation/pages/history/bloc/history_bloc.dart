@@ -39,13 +39,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       }
       emit(HistoryState(
           status: calcs.isEmpty ? BlocStatus.empty : BlocStatus.success,
-          calculations: calcs));
+          calculations: calcs.reversed.toList()));
     });
   }
 
   _onDeleteItemEvent(DeleteItemEvent event, emit) async {
     final result =
-        await deleteCalculateUseCase(DeleteCalculationParams(event.index));
+        await deleteCalculateUseCase(DeleteCalculationParams(event.id));
     result.fold(
         (failure) => HistoryState(
             status: BlocStatus.failure,

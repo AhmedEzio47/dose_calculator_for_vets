@@ -1,4 +1,5 @@
 class CalculationEntity {
+  final int? id;
   final String? description;
   final num concentration;
   final num quantity;
@@ -6,6 +7,7 @@ class CalculationEntity {
   final num animalMass;
 
   CalculationEntity({
+    required this.id,
     this.description,
     required this.concentration,
     required this.quantity,
@@ -15,6 +17,7 @@ class CalculationEntity {
 
   CalculationEntity copyWith({String? description}) {
     return CalculationEntity(
+      id: id,
       description: description ?? this.description,
       concentration: concentration,
       dosePerUnitMass: dosePerUnitMass,

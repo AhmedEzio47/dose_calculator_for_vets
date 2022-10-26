@@ -5,6 +5,6 @@ import '../../core/failures.dart';
 
 abstract class CalculationsRepo {
   Future<Either<Failure, void>> save(CalculationEntity calculation);
-  Future<Either<Failure, void>> delete(int index);
+  Future<Either<Failure, void>> delete(int id);
   Future<Either<Failure, List<CalculationEntity>>> getCalculations();
 }

@@ -2,7 +2,8 @@ import 'package:dose_calculator_for_vets/domain/entities/calculation_entity.dart
 
 class CalculationModel extends CalculationEntity {
   CalculationModel(
-      {super.description,
+      {super.id,
+      super.description,
       required super.concentration,
       required super.quantity,
       required super.dosePerUnitMass,
@@ -20,6 +21,7 @@ class CalculationModel extends CalculationEntity {
 
   factory CalculationModel.fromJson(Map json) {
     return CalculationModel(
+        id: json['id'],
         concentration: json['concentration'],
         quantity: json['quantity'],
         dosePerUnitMass: json['dosePerUnitMass'],
