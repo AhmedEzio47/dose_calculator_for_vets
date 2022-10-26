@@ -10,7 +10,7 @@ We don't collect any personal data
 The user has the option to save a calculation in his local storage
 
 ## Settings Preferences
-If you switch the app theme, you may opt-in to saving your preference in a small file stored on your device containing your shared preferences in a key-value pair. These are for your convenience so that you do not have to reset your preferences every time you close and open the app.
+If you switch the app theme or units, you may opt-in to saving your preference in a small file stored on your device containing your shared preferences in a key-value pair. These are for your convenience so that you do not have to reset your preferences every time you close and open the app.
 
 ## Who we share your data with
 We don't share any personal data
