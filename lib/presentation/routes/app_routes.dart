@@ -1,6 +1,7 @@
 import 'package:dose_calculator_for_vets/presentation/pages/history/bloc/history_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/history/history_page.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/home_page.dart';
+import 'package:dose_calculator_for_vets/presentation/pages/how_to_use/how_to_use_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +12,7 @@ class AppRoutes {
   static const String splash = '/splash';
   static const String home = '/home';
   static const String history = '/history';
+  static const String howToUse = '/howToUse';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     late Map args;
@@ -28,6 +30,8 @@ class AppRoutes {
                   create: (_) => di<HistoryBloc>()..add(GetHistoryEvent()),
                   child: const HistoryPage(),
                 ));
+      case AppRoutes.howToUse:
+        return MaterialPageRoute(builder: (_) => const HowToUsePage());
       default:
         return _errorRoute();
     }

@@ -2,12 +2,10 @@ import 'package:dose_calculator_for_vets/core/constants/text_styles.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/save_calculation_dialog.dart';
 import 'package:dose_calculator_for_vets/presentation/widgets/app_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/locale/app_localization.dart';
 import '../../../../core/locale/translation_keys.dart';
 import '../../../widgets/general_btn.dart';
-import '../../app_view/blocs/units/units_bloc.dart';
 
 class ResultDialog extends StatelessWidget {
   const ResultDialog({Key? key, required this.finalDose}) : super(key: key);
@@ -30,7 +28,6 @@ class ResultDialog extends StatelessWidget {
                 AppLocalizations.instance.translate(
                   TranslationKeys.finalDoseResult,
                   param1: finalDose.toString(),
-                  param2: context.read<UnitsBloc>().state.toString(),
                 ),
                 style: TextStyles.semiBold.copyWith(fontSize: 22)),
             const SizedBox(

@@ -104,7 +104,6 @@ class HistoryItem extends StatelessWidget {
                       Text(
                         '${AppLocalizations.instance.translate(
                           TranslationKeys.finalDose,
-                          param1: state.toString(),
                         )}: ${context.read<CalculatorBloc>().calculate(calculation).toStringAsFixed(AppConstants.decimalPrecision)}',
                         style: TextStyles.regular.copyWith(fontSize: 16),
                       ),

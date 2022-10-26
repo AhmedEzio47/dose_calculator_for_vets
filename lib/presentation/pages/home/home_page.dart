@@ -1,3 +1,4 @@
+import 'package:dose_calculator_for_vets/core/constants/app_constants.dart';
 import 'package:dose_calculator_for_vets/core/constants/enums.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
@@ -87,9 +88,15 @@ class _HomePageState extends State<HomePage> {
                   _quantityController.text =
                       state.calculation!.quantity.toString();
                   _dosePerUnitMassController.text =
-                      state.calculation!.dosePerUnitMass.toString();
+                      AppConstants.massUnit == MassUnitValues.kg
+                          ? state.calculation!.dosePerUnitMass.toString()
+                          : state.calculation!.dosePerUnitMass
+                              .toStringAsFixed(AppConstants.decimalPrecision);
                   _animalMassController.text =
-                      state.calculation!.animalMass.toString();
+                      AppConstants.massUnit == MassUnitValues.kg
+                          ? state.calculation!.animalMass.toString()
+                          : state.calculation!.animalMass
+                              .toStringAsFixed(AppConstants.decimalPrecision);
                   setState(() {});
                 }
               },

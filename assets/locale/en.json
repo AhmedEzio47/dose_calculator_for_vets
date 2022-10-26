@@ -2,16 +2,16 @@
   "drugConcentration" : "Drug concentration (mg)",
   "quantity" : "Quantity (ml)",
   "dosePerUnitMass": "Dose per unit mass (mg/{PARAM1})",
-  "finalDoseForOneUnitMass" : "Final dose for 1 unit mass (ml/kg)",
+  "finalDoseForOneUnitMass" : "Final dose for 1 unit mass (ml/{PARAM1})",
   "animalMass" : "Animal mass ({PARAM1})",
-  "finalDose" : "Final dose (ml/{PARAM1})",
+  "finalDose" : "Final dose (ml)",
   "calculate" : "Calculate",
   "invalidInput" : "Invalid input",
   "emptyInput" : "Please fill all input fields",
   "generalSuccessMessage" : "Operation completed successfully",
   "generalError" : "Unknown error, sorry for this",
   "ok" : "OK",
-  "finalDoseResult" : "The final dose is: {PARAM1} (ml/{PARAM2})",
+  "finalDoseResult" : "The final dose is: {PARAM1} (ml)",
   "switchTheme" : "Switch theme",
   "serverException" : "Server/Connection error",
   "unexpectedException" : "An unexpected error occurred",
@@ -27,5 +27,7 @@
   "reviewApp" : "Review app",
   "recalculate" : "Recalculate",
   "delete" : "Delete",
-  "changeMassUnit" : "Change mass unit ({PARAM1})"
+  "changeMassUnit" : "Change mass unit ({PARAM1})",
+  "howToUse" : "How to use",
+  "howToUseDetails" : "1- Enter drug concentration as described per ml in the internal prescription of the drug.\n\n2- Enter quantity of (mls) which is also show in drug concentration \n\n E.g.: Dexamethasone amp. concentration is 8 mg per 2 ml.\n\n3- Enter dose per unit mass which is the drug dose for the species you're calculating e.g.: Dexamethasone dose for Feline is .35 mg/kg.\n\n4- Enter the mass(weight) of the animal."
 }

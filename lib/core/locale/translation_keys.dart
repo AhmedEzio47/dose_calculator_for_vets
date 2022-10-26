@@ -29,4 +29,6 @@ class TranslationKeys {
   static const String recalculate = 'recalculate';
   static const String delete = 'delete';
   static const String changeMassUnit = 'changeMassUnit';
+  static const String howToUse = 'howToUse';
+  static const String howToUseDetails = 'howToUseDetails';
 }
