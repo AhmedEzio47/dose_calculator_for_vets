@@ -25,6 +25,6 @@ The app does not use any third parties to get data from, but may use in the futu
 We do not use automated decision-making.
 
 ## Embedded content from other websites
-The user may choose to donate to us using a PayPal link in the drawer, the user may also choose to review our app using a link to the PlayStore page in the drawer
+The user may choose to donate to us using a PayPal link in the app drawer, the user may also choose to review our app using a link to the PlayStore page in the app drawer
 
 
