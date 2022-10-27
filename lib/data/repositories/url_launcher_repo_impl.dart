@@ -8,7 +8,7 @@ class UrlLauncherRepoImpl implements UrlLauncherRepo {
   @override
   Future<Either<Failure, void>> launchUrl({required String url}) async {
     try {
-      if (!await url_launcher.launchUrl(Uri.parse(url))) {
+      if (!await url_launcher.launch(url)) {
         throw Exception('Could not launch $url');
       }
       return const Right(null);
