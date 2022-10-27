@@ -29,5 +29,5 @@
   "delete" : "Delete",
   "changeMassUnit" : "Change mass unit ({PARAM1})",
   "howToUse" : "How to use",
-  "howToUseDetails" : "1- Enter drug concentration as described per ml in the internal prescription of the drug.\n\n2- Enter quantity of (mls) which is also show in drug concentration \n\n E.g.: Dexamethasone amp. concentration is 8 mg per 2 ml.\n\n3- Enter dose per unit mass which is the drug dose for the species you're calculating e.g.: Dexamethasone dose for Feline is .35 mg/kg.\n\n4- Enter the mass(weight) of the animal."
+  "howToUseDetails" : "1- Enter drug concentration as described per ml in the internal prescription of the drug.\n\n2- Enter quantity of (mls) which is also show in drug concentration \n\n E.g.: Dexamethasone amp. concentration is 8 mg per 2 ml.\n\n3- Enter dose per unit mass which is the drug dose for the species you're calculating e.g.: Dexamethasone dose for Feline is .35 mg/Kg or .16 mg/Lb.\n\n4- Enter the mass(weight) of the animal."
 }
