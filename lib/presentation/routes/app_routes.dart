@@ -22,6 +22,8 @@ class AppRoutes {
     }
 
     switch (_currentRoute) {
+      case AppRoutes.initialRoute:
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => const HomePage());
       case AppRoutes.history:

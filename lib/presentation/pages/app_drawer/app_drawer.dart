@@ -19,72 +19,77 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Image.asset(AppAssets.appIcon),
-          ),
-          const Divider(),
-          DrawerItem(
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(AppRoutes.history);
-            },
-            icon: Icons.book,
-            text: AppLocalizations.instance.translate(TranslationKeys.history),
-          ),
-          const Divider(),
-          BlocBuilder<UnitsBloc, UnitsState>(
-            builder: (context, state) {
-              return DrawerItem(
-                onTap: () =>
-                    context.read<UnitsBloc>().add(MassUnitChangedEvent()),
-                icon: Icons.switch_left,
-                text: AppLocalizations.instance.translate(
-                    TranslationKeys.changeMassUnit,
-                    param1: state.toString()),
-              );
-            },
-          ),
-          const Divider(),
-          DrawerItem(
-            onTap: () => Navigator.of(context).pushNamed(AppRoutes.howToUse),
-            icon: Icons.question_mark,
-            text: AppLocalizations.instance.translate(TranslationKeys.howToUse),
-          ),
-          const Divider(),
-          DrawerItem(
-            onTap: () => context.read<ThemeBloc>().add(ThemeChangedEvent()),
-            icon: Icons.brush,
-            text: AppLocalizations.instance
-                .translate(TranslationKeys.switchTheme),
-          ),
-          const Divider(),
-          if (Platform.isAndroid)
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Image.asset(AppAssets.appIcon),
+            ),
+            const Divider(),
             DrawerItem(
               onTap: () {
                 Navigator.of(context).pop();
-                context.read<UrlLauncherBloc>().add(UrlLaunched(
-                    url: Platform.isAndroid ? AppConstants.playStoreUrl : ''));
+                Navigator.of(context).pushNamed(AppRoutes.history);
               },
-              icon: Icons.star,
-              text: AppLocalizations.instance
-                  .translate(TranslationKeys.reviewApp),
+              icon: Icons.book,
+              text:
+                  AppLocalizations.instance.translate(TranslationKeys.history),
             ),
-          if (Platform.isAndroid) const Divider(),
-          DrawerItem(
-            onTap: () {
-              Navigator.of(context).pop();
-              context
-                  .read<UrlLauncherBloc>()
-                  .add(UrlLaunched(url: AppConstants.donationUrl));
-            },
-            icon: Icons.currency_bitcoin,
-            text: AppLocalizations.instance.translate(TranslationKeys.donate),
-          ),
-          const Divider(),
-        ],
+            const Divider(),
+            BlocBuilder<UnitsBloc, UnitsState>(
+              builder: (context, state) {
+                return DrawerItem(
+                  onTap: () =>
+                      context.read<UnitsBloc>().add(MassUnitChangedEvent()),
+                  icon: Icons.switch_left,
+                  text: AppLocalizations.instance.translate(
+                      TranslationKeys.changeMassUnit,
+                      param1: state.toString()),
+                );
+              },
+            ),
+            const Divider(),
+            DrawerItem(
+              onTap: () => Navigator.of(context).pushNamed(AppRoutes.howToUse),
+              icon: Icons.question_mark,
+              text:
+                  AppLocalizations.instance.translate(TranslationKeys.howToUse),
+            ),
+            const Divider(),
+            DrawerItem(
+              onTap: () => context.read<ThemeBloc>().add(ThemeChangedEvent()),
+              icon: Icons.brush,
+              text: AppLocalizations.instance
+                  .translate(TranslationKeys.switchTheme),
+            ),
+            const Divider(),
+            if (Platform.isAndroid)
+              DrawerItem(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  context.read<UrlLauncherBloc>().add(UrlLaunched(
+                      url:
+                          Platform.isAndroid ? AppConstants.playStoreUrl : ''));
+                },
+                icon: Icons.star,
+                text: AppLocalizations.instance
+                    .translate(TranslationKeys.reviewApp),
+              ),
+            if (Platform.isAndroid) const Divider(),
+            DrawerItem(
+              onTap: () {
+                Navigator.of(context).pop();
+                context
+                    .read<UrlLauncherBloc>()
+                    .add(UrlLaunched(url: AppConstants.donationUrl));
+              },
+              icon: Icons.currency_bitcoin,
+              text: AppLocalizations.instance.translate(TranslationKeys.donate),
+            ),
+            const Divider(),
+          ],
+        ),
       ),
     );
   }

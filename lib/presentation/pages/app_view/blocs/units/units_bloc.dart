@@ -35,7 +35,7 @@ class UnitsBloc extends Bloc<UnitsEvent, UnitsState> {
     final either = await getMassUnitUseCase(NoParams());
     either.fold((failure) {}, (unit) {
       MassUnitValues massUnit =
-          unit == kg ? MassUnitValues.kg : MassUnitValues.lb;
+          unit == lb ? MassUnitValues.lb : MassUnitValues.kg;
       AppConstants.massUnit = massUnit;
       emit(UnitsState(massUnit));
     });

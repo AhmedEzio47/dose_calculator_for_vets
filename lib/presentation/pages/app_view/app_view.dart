@@ -48,7 +48,7 @@ class AppView extends StatelessWidget {
                 color: AppColors.primaryColor,
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: AppRoutes.generateRoute,
-                initialRoute: AppRoutes.home,
+                initialRoute: AppRoutes.initialRoute,
                 theme: Themes.buildTheme(
                     context: context,
                     theme: themeState.theme == ThemesValues.light
