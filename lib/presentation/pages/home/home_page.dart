@@ -2,6 +2,7 @@ import 'package:dose_calculator_for_vets/core/constants/app_constants.dart';
 import 'package:dose_calculator_for_vets/core/constants/enums.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
+import 'package:dose_calculator_for_vets/data/repositories/ads_repo_impl.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_drawer/app_drawer.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/home_header.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/result_dialog.dart';
@@ -11,7 +12,9 @@ import 'package:dose_calculator_for_vets/presentation/widgets/edit_field.dart';
 import 'package:dose_calculator_for_vets/presentation/widgets/general_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../app_view/blocs/ads/ads_bloc.dart';
 import '../app_view/blocs/units/units_bloc.dart';
 import 'bloc/calculator_bloc.dart';
 
@@ -41,9 +44,25 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    context.read<AdsBloc>().add(LoadAdUnitEvent(kHomeAdUnitId));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
+      bottomNavigationBar: BlocBuilder<AdsBloc, AdsState>(
+          builder: (context, state) => state.status == BlocStatus.success
+              ? SizedBox(
+                  height: 70,
+                  width: double.infinity,
+                  child: AdWidget(
+                    ad: state.ad!,
+                  ),
+                )
+              : const SizedBox()),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

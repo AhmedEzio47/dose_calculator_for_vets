@@ -1,3 +1,4 @@
+import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/ads/ads_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/url_launcher/url_launcher_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/bloc/calculator_bloc.dart';
@@ -33,6 +34,9 @@ class AppView extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di<UrlLauncherBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di<AdsBloc>(),
         ),
         BlocProvider(
           create: (_) => di<UnitsBloc>()..add(MassUnitCachedRequestedEvent()),

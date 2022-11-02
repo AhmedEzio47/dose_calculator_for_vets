@@ -1,4 +1,5 @@
 import 'package:dose_calculator_for_vets/di/di.dart';
+import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/ads/ads_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/locale/locale_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/theme/theme_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/url_launcher/url_launcher_bloc.dart';
@@ -18,4 +19,5 @@ void initBlocs() {
   di.registerFactory(() => UrlLauncherBloc(launchUrlUseCase: di()));
   di.registerFactory(
       () => UnitsBloc(changeMassUnitUseCase: di(), getMassUnitUseCase: di()));
+  di.registerFactory(() => AdsBloc(di()));
 }
