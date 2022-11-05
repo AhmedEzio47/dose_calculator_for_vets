@@ -31,4 +31,5 @@ class TranslationKeys {
   static const String changeMassUnit = 'changeMassUnit';
   static const String howToUse = 'howToUse';
   static const String howToUseDetails = 'howToUseDetails';
+  static const String activePrinciple = 'activePrinciple';
 }

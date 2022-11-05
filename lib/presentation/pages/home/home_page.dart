@@ -3,6 +3,7 @@ import 'package:dose_calculator_for_vets/core/constants/enums.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_drawer/app_drawer.dart';
+import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/active_principle_bottom_sheet.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/home_header.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/result_dialog.dart';
 import 'package:dose_calculator_for_vets/presentation/widgets/app_dialog.dart';
@@ -135,19 +136,38 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    EditField(
-                      focusNode: _focusNodes[2],
-                      controller: _dosePerUnitMassController,
-                      inputAction: TextInputAction.next,
-                      hint: '',
-                      label: AppLocalizations.instance.translate(
-                        TranslationKeys.dosePerUnitMass,
-                        param1: unitsState.toString(),
-                      ),
-                      inputType: TextInputType.number,
-                      onSubmit: (val) {
-                        _focusNodes[3].requestFocus();
-                      },
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: EditField(
+                            focusNode: _focusNodes[2],
+                            controller: _dosePerUnitMassController,
+                            inputAction: TextInputAction.next,
+                            hint: '',
+                            label: AppLocalizations.instance.translate(
+                              TranslationKeys.dosePerUnitMass,
+                              param1: unitsState.toString(),
+                            ),
+                            inputType: TextInputType.number,
+                            onSubmit: (val) {
+                              _focusNodes[3].requestFocus();
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GeneralBtn(
+                            width: 100,
+                            height: 50,
+                            fontSize: 16,
+                            onPressed: () => showModalBottomSheet(
+                                context: context,
+                                builder: (_) => ActivePrincipleBottomSheet()),
+                            text: AppLocalizations.instance
+                                .translate(TranslationKeys.activePrinciple)),
+                      ],
                     ),
                     const SizedBox(
                       height: 10,

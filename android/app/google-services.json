@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "257859747981",
+    "project_id": "dose-calculator-27137",
+    "storage_bucket": "dose-calculator-27137.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257859747981:android:ca65a8036c4502a7e9e2c4",
+        "android_client_info": {
+          "package_name": "com.ahmednabil.dose_calculator_for_vets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257859747981-4ov9t7o7qrqtpc9ike0d1cqhkb6of55q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANl948zuJc0oJwo_mYTu9Gab_e6S3d4Wc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257859747981-4ov9t7o7qrqtpc9ike0d1cqhkb6of55q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
