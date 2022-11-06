@@ -1,5 +1,6 @@
 import 'package:dose_calculator_for_vets/domain/usecases/calculations/delete_calculation_use_case.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/calculations/get_calculations_use_case.dart';
+import 'package:dose_calculator_for_vets/domain/usecases/drugs/search_drug_use_case.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/locale/get_locale_use_case.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/themes/change_theme_use_case.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/themes/get_theme_use_case.dart';
@@ -41,5 +42,8 @@ void initUseCases() {
   );
   di.registerLazySingleton(
     () => ChangeMassUnitUseCase(di()),
+  );
+  di.registerLazySingleton(
+    () => SearchDrugUseCase(di()),
   );
 }

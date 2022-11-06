@@ -32,4 +32,5 @@ class TranslationKeys {
   static const String howToUse = 'howToUse';
   static const String howToUseDetails = 'howToUseDetails';
   static const String activePrinciple = 'activePrinciple';
+  static const String route = 'route';
 }

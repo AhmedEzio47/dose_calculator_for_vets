@@ -18,7 +18,7 @@ class DrugRouteModel extends DrugRouteEntity {
   }
 
   factory DrugRouteModel.fromJson(Map<String, dynamic> json) {
-    var species = json['species'] as List<Map<String, dynamic>>;
+    var species = json['species'] as List;
     return DrugRouteModel(
         route: json['route'],
         species: species.map((e) => SpeciesModel.fromJson(e)).toList());

@@ -12,7 +12,8 @@ void initBlocs() {
       () => ThemeBloc(changeThemeUseCase: di(), getThemeUseCase: di()));
   di.registerFactory(
       () => LocaleBloc(changeLocaleUseCase: di(), getLocaleUseCase: di()));
-  di.registerFactory(() => CalculatorBloc(di()));
+  di.registerFactory(() =>
+      CalculatorBloc(saveCalculationUseCase: di(), searchDrugUseCase: di()));
   di.registerFactory(() =>
       HistoryBloc(getCalculationsUseCase: di(), deleteCalculateUseCase: di()));
   di.registerFactory(() => UrlLauncherBloc(launchUrlUseCase: di()));

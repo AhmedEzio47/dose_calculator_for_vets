@@ -4,6 +4,9 @@ import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
 import 'package:dose_calculator_for_vets/core/utils/converters.dart';
 import 'package:dose_calculator_for_vets/domain/entities/calculation_entity.dart';
+import 'package:dose_calculator_for_vets/domain/entities/drug_entity.dart';
+import 'package:dose_calculator_for_vets/domain/entities/drug_route_entity.dart';
+import 'package:dose_calculator_for_vets/domain/usecases/drugs/search_drug_use_case.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 
 import '../../../../core/constants/enums.dart';
@@ -14,16 +17,50 @@ part 'calculator_event.dart';
 part 'calculator_state.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
+  final SearchDrugUseCase searchDrugUseCase;
   final SaveCalculationUseCase saveCalculationUseCase;
-  CalculatorBloc(this.saveCalculationUseCase) : super(CalculatorState()) {
+  CalculatorBloc({
+    required this.saveCalculationUseCase,
+    required this.searchDrugUseCase,
+  }) : super(CalculatorState()) {
     on<CalculateEvent>(_onCalculateEvent);
     on<SaveCalculationEvent>(_onSaveCalculationEvent);
     on<RecalculateEvent>(_onRecalculateEvent);
+    on<SearchDrugEvent>(onSearchDrugEvent);
+    on<DrugRouteIndexChanged>(_onDrugRouteIndexChanged);
+    on<DrugIndexChanged>(_onDrugIndexChanged);
   }
 
   void _onRecalculateEvent(RecalculateEvent event, emit) {
     lastCalculation = event.calculation;
     emit(state.copyWith(calculation: event.calculation));
+  }
+
+  void _onDrugRouteIndexChanged(DrugRouteIndexChanged event, emit) {
+    emit(
+        state.copyWith(selectedRoute: state.selectedDrug!.routes[event.index]));
+  }
+
+  void _onDrugIndexChanged(DrugIndexChanged event, emit) {
+    emit(state.copyWith(selectedDrug: state.searchResults[event.index]));
+  }
+
+  Future<List<DrugEntity>> onSearchDrugEvent(
+      SearchDrugEvent event, emit) async {
+    final result = await searchDrugUseCase(SearchDrugParams(event.query));
+    List<DrugEntity> _results = [];
+    result.fold(
+      (failure) => null,
+      (results) {
+        if (emit != null) {
+          emit(state.copyWith(
+            searchResults: results,
+          ));
+        }
+        _results = results;
+      },
+    );
+    return _results;
   }
 
   void _onSaveCalculationEvent(SaveCalculationEvent event, emit) async {

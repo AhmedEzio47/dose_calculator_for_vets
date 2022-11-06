@@ -27,3 +27,21 @@ class RecalculateEvent extends CalculatorEvent {
 
   RecalculateEvent(this.calculation);
 }
+
+class SearchDrugEvent extends CalculatorEvent {
+  final String query;
+
+  SearchDrugEvent(this.query);
+}
+
+class DrugRouteIndexChanged extends CalculatorEvent {
+  final int index;
+
+  DrugRouteIndexChanged(this.index);
+}
+
+class DrugIndexChanged extends CalculatorEvent {
+  final int index;
+
+  DrugIndexChanged(this.index);
+}

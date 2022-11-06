@@ -10,9 +10,11 @@ import '../data_sources/remote/firestore/firestore/firestore_constants.dart';
 
 class DrugsRepoImpl implements DrugsRepo {
   @override
-  Future<Either<Failure, List<DrugEntity>>> searchDrugs(String query) async {
+  Future<Either<Failure, List<DrugEntity>>> searchDrugs(
+      String queryText) async {
     try {
-      Query query = kDrugsRef.orderBy('name');
+      Query query =
+          kDrugsRef.where('search', arrayContains: queryText).orderBy('name');
 
       QuerySnapshot drugsQuery = await query.get();
       List<DrugEntity> routes = drugsQuery.docs
@@ -21,7 +23,7 @@ class DrugsRepoImpl implements DrugsRepo {
       return Right(routes);
     } catch (ex) {
       Logger.debugLog(ex.toString());
-      return Left(ServerFailure());
+      return Left(ServerFailure(message: ex.toString()));
     }
   }
 }

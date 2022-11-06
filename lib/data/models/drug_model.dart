@@ -9,7 +9,7 @@ class DrugModel extends DrugEntity {
   });
 
   factory DrugModel.fromJson(Map<String, dynamic> json) {
-    var routes = (json['routes'] as List<Map<String, dynamic>>);
+    var routes = (json['routes'] as List);
 
     return DrugModel(
         name: json['name'],
