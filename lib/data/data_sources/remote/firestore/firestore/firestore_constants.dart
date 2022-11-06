@@ -10,3 +10,6 @@ final CollectionReference kRoutesRef =
 
 final CollectionReference kSpeciesRef =
     di<FirebaseFirestore>().collection('species');
+
+final CollectionReference kSuggestionsRef =
+    di<FirebaseFirestore>().collection('suggestions');

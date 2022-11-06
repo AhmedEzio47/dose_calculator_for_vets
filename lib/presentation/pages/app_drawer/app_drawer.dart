@@ -59,6 +59,16 @@ class AppDrawer extends StatelessWidget {
             ),
             const Divider(),
             DrawerItem(
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(AppRoutes.suggestDrug);
+              },
+              icon: Icons.lightbulb,
+              text: AppLocalizations.instance
+                  .translate(TranslationKeys.suggestDrug),
+            ),
+            const Divider(),
+            DrawerItem(
               onTap: () => context.read<ThemeBloc>().add(ThemeChangedEvent()),
               icon: Icons.brush,
               text: AppLocalizations.instance

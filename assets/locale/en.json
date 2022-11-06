@@ -37,5 +37,9 @@
   "searchActivePrinciples" : "Search active principles",
   "selectRoute" : "Select route",
   "selectSpecies" : "Select species",
-  "shareApp" : "Share app"
+  "shareApp" : "Share app",
+  "drugName" : "Drug/Active principle name",
+  "notes" : "Notes",
+  "submit" : "Submit",
+  "suggestDrug" : "Suggest drug/active principle"
 }

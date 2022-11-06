@@ -38,4 +38,8 @@ class TranslationKeys {
   static const String selectSpecies = 'selectSpecies';
   static const String species = 'species';
   static const String shareApp = 'shareApp';
+  static const String drugName = 'drugName';
+  static const String notes = 'notes';
+  static const String submit = 'submit';
+  static const String suggestDrug = 'suggestDrug';
 }

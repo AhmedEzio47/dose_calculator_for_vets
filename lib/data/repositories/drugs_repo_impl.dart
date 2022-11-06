@@ -26,4 +26,16 @@ class DrugsRepoImpl implements DrugsRepo {
       return Left(ServerFailure(message: ex.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> suggestDrug(
+      {required String name, required String notes}) async {
+    try {
+      await kSuggestionsRef.add({'name': name, 'notes': notes});
+      return const Right(null);
+    } catch (ex) {
+      Logger.debugLog(ex.toString());
+      return Left(ServerFailure(message: ex.toString()));
+    }
+  }
 }
