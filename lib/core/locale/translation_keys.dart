@@ -37,4 +37,5 @@ class TranslationKeys {
   static const String selectRoute = 'selectRoute';
   static const String selectSpecies = 'selectSpecies';
   static const String species = 'species';
+  static const String shareApp = 'shareApp';
 }
