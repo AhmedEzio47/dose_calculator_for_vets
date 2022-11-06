@@ -24,7 +24,8 @@ class DrugRouteDropDown extends StatelessWidget {
         BlocBuilder<CalculatorBloc, CalculatorState>(
           builder: (context, state) {
             return DropdownButton<DrugRouteEntity>(
-              hint: const Text('Select route'),
+              hint: Text(AppLocalizations.instance
+                  .translate(TranslationKeys.selectRoute)),
               value: state.selectedRoute ?? state.selectedDrug!.routes.first,
               items: state.selectedDrug!.routes
                   .map((e) => DropdownMenuItem<DrugRouteEntity>(

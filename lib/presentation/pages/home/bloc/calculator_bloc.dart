@@ -6,11 +6,13 @@ import 'package:dose_calculator_for_vets/core/utils/converters.dart';
 import 'package:dose_calculator_for_vets/domain/entities/calculation_entity.dart';
 import 'package:dose_calculator_for_vets/domain/entities/drug_entity.dart';
 import 'package:dose_calculator_for_vets/domain/entities/drug_route_entity.dart';
+import 'package:dose_calculator_for_vets/domain/entities/species_entity.dart';
 import 'package:dose_calculator_for_vets/domain/usecases/drugs/search_drug_use_case.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 
 import '../../../../core/constants/enums.dart';
 import '../../../../core/exceptions.dart';
+import '../../../../core/utils/formatters.dart';
 import '../../../../domain/usecases/calculations/save_calculation_use_case.dart';
 
 part 'calculator_event.dart';
@@ -29,6 +31,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     on<SearchDrugEvent>(onSearchDrugEvent);
     on<DrugRouteIndexChanged>(_onDrugRouteIndexChanged);
     on<DrugIndexChanged>(_onDrugIndexChanged);
+    on<SpeciesIndexChanged>(_onSpeciesIndexChanged);
   }
 
   void _onRecalculateEvent(RecalculateEvent event, emit) {
@@ -39,10 +42,28 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   void _onDrugRouteIndexChanged(DrugRouteIndexChanged event, emit) {
     emit(
         state.copyWith(selectedRoute: state.selectedDrug!.routes[event.index]));
+    add(SpeciesIndexChanged(0));
   }
 
   void _onDrugIndexChanged(DrugIndexChanged event, emit) {
     emit(state.copyWith(selectedDrug: state.searchResults[event.index]));
+    add(DrugRouteIndexChanged(0));
+  }
+
+  void _onSpeciesIndexChanged(SpeciesIndexChanged event, emit) {
+    late num dosePerUnitMass;
+    if (AppConstants.massUnit == MassUnitValues.lb) {
+      dosePerUnitMass = Converters.convertMgPerKgToMgPerLb(
+          state.selectedRoute!.species[event.index].dosage);
+    } else {
+      dosePerUnitMass = state.selectedRoute!.species[event.index].dosage;
+    }
+    emit(state.copyWith(
+      status: BlocStatus.initial,
+      selectedSpecies: state.selectedRoute!.species[event.index],
+      dosePerUnitMass: Formatters.formatDecimals(dosePerUnitMass),
+      comment: state.selectedRoute!.species[event.index].comment,
+    ));
   }
 
   Future<List<DrugEntity>> onSearchDrugEvent(
@@ -109,7 +130,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
       finalDose = calculate(lastCalculation);
       emit(CalculatorState(
-          status: BlocStatus.success, finalDose: finalDose.toStringAsFixed(2)));
+          status: BlocStatus.success,
+          finalDose: Formatters.formatDecimals(finalDose)));
     } on FormatException {
       emit(CalculatorState(
           status: BlocStatus.failure,

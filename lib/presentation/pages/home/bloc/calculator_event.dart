@@ -45,3 +45,9 @@ class DrugIndexChanged extends CalculatorEvent {
 
   DrugIndexChanged(this.index);
 }
+
+class SpeciesIndexChanged extends CalculatorEvent {
+  final int index;
+
+  SpeciesIndexChanged(this.index);
+}

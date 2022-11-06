@@ -1,7 +1,7 @@
 import 'package:dose_calculator_for_vets/core/constants/app_colors.dart';
-import 'package:dose_calculator_for_vets/core/constants/app_constants.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
+import 'package:dose_calculator_for_vets/core/utils/formatters.dart';
 import 'package:dose_calculator_for_vets/domain/entities/calculation_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,14 +71,14 @@ class HistoryItem extends StatelessWidget {
                           height: 5,
                         ),
                       Text(
-                        '${AppLocalizations.instance.translate(TranslationKeys.drugConcentration)}: ${calculation.concentration.toStringAsFixed(AppConstants.decimalPrecision)}',
+                        '${AppLocalizations.instance.translate(TranslationKeys.drugConcentration)}: ${Formatters.formatDecimals(calculation.concentration)}',
                         style: TextStyles.regular.copyWith(fontSize: 16),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        '${AppLocalizations.instance.translate(TranslationKeys.quantity)}: ${calculation.quantity.toStringAsFixed(AppConstants.decimalPrecision)}',
+                        '${AppLocalizations.instance.translate(TranslationKeys.quantity)}: ${Formatters.formatDecimals(calculation.quantity)}',
                         style: TextStyles.regular.copyWith(fontSize: 16),
                       ),
                       const SizedBox(
@@ -88,14 +88,14 @@ class HistoryItem extends StatelessWidget {
                         '${AppLocalizations.instance.translate(
                           TranslationKeys.dosePerUnitMass,
                           param1: state.toString(),
-                        )}: ${calculation.dosePerUnitMass.toStringAsFixed(AppConstants.decimalPrecision)}',
+                        )}: ${Formatters.formatDecimals(calculation.dosePerUnitMass)}',
                         style: TextStyles.regular.copyWith(fontSize: 16),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        '${AppLocalizations.instance.translate(TranslationKeys.animalMass, param1: state.toString())}: ${calculation.animalMass.toStringAsFixed(AppConstants.decimalPrecision)}',
+                        '${AppLocalizations.instance.translate(TranslationKeys.animalMass, param1: state.toString())}: ${Formatters.formatDecimals(calculation.animalMass)}',
                         style: TextStyles.regular.copyWith(fontSize: 16),
                       ),
                       const SizedBox(
@@ -104,7 +104,7 @@ class HistoryItem extends StatelessWidget {
                       Text(
                         '${AppLocalizations.instance.translate(
                           TranslationKeys.finalDose,
-                        )}: ${context.read<CalculatorBloc>().calculate(calculation).toStringAsFixed(AppConstants.decimalPrecision)}',
+                        )}: ${Formatters.formatDecimals(context.read<CalculatorBloc>().calculate(calculation))}',
                         style: TextStyles.regular.copyWith(fontSize: 16),
                       ),
                     ],

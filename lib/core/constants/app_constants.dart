@@ -7,5 +7,5 @@ class AppConstants {
   static const String playStoreUrl =
       "https://play.google.com/store/apps/details?id=com.ahmednabil.dose_calculator_for_vets";
   static MassUnitValues? massUnit;
-  static int decimalPrecision = 2;
+  static int decimalPrecision = 8;
 }

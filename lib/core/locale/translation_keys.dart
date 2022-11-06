@@ -33,4 +33,8 @@ class TranslationKeys {
   static const String howToUseDetails = 'howToUseDetails';
   static const String activePrinciple = 'activePrinciple';
   static const String route = 'route';
+  static const String searchActivePrinciples = 'searchActivePrinciples';
+  static const String selectRoute = 'selectRoute';
+  static const String selectSpecies = 'selectSpecies';
+  static const String species = 'species';
 }

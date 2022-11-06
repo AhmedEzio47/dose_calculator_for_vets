@@ -13,6 +13,7 @@ import 'package:dose_calculator_for_vets/presentation/widgets/general_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/utils/formatters.dart';
 import '../app_view/blocs/units/units_bloc.dart';
 import 'bloc/calculator_bloc.dart';
 
@@ -64,8 +65,10 @@ class _HomePageState extends State<HomePage> {
             return BlocListener<CalculatorBloc, CalculatorState>(
               listenWhen: (prev, current) =>
                   prev.status != current.status ||
-                  prev.calculation != current.calculation,
+                  prev.calculation != current.calculation ||
+                  prev.dosePerUnitMass != current.dosePerUnitMass,
               listener: (context, state) {
+                _dosePerUnitMassController.text = state.dosePerUnitMass;
                 if (state.status == BlocStatus.success) {
                   _concentrationController.clear();
                   _quantityController.clear();
@@ -88,16 +91,14 @@ class _HomePageState extends State<HomePage> {
                       state.calculation!.concentration.toString();
                   _quantityController.text =
                       state.calculation!.quantity.toString();
-                  _dosePerUnitMassController.text =
+                  _dosePerUnitMassController.text = Formatters.formatDecimals(
                       AppConstants.massUnit == MassUnitValues.kg
-                          ? state.calculation!.dosePerUnitMass.toString()
-                          : state.calculation!.dosePerUnitMass
-                              .toStringAsFixed(AppConstants.decimalPrecision);
-                  _animalMassController.text =
+                          ? state.calculation!.dosePerUnitMass
+                          : state.calculation!.dosePerUnitMass);
+                  _animalMassController.text = Formatters.formatDecimals(
                       AppConstants.massUnit == MassUnitValues.kg
-                          ? state.calculation!.animalMass.toString()
-                          : state.calculation!.animalMass
-                              .toStringAsFixed(AppConstants.decimalPrecision);
+                          ? state.calculation!.animalMass
+                          : state.calculation!.animalMass);
                   setState(() {});
                 }
               },

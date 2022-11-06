@@ -8,6 +8,9 @@ class CalculatorState {
   final List<DrugEntity> searchResults;
   final DrugRouteEntity? selectedRoute;
   final DrugEntity? selectedDrug;
+  final SpeciesEntity? selectedSpecies;
+  final String dosePerUnitMass;
+  final String? comment;
   CalculatorState({
     this.status = BlocStatus.initial,
     this.finalDose,
@@ -16,6 +19,9 @@ class CalculatorState {
     this.searchResults = const [],
     this.selectedRoute,
     this.selectedDrug,
+    this.selectedSpecies,
+    this.dosePerUnitMass = '',
+    this.comment,
   });
 
   CalculatorState copyWith({
@@ -26,6 +32,9 @@ class CalculatorState {
     List<DrugEntity>? searchResults,
     DrugRouteEntity? selectedRoute,
     DrugEntity? selectedDrug,
+    SpeciesEntity? selectedSpecies,
+    String? dosePerUnitMass,
+    String? comment,
   }) {
     return CalculatorState(
       status: status ?? this.status,
@@ -35,6 +44,9 @@ class CalculatorState {
       searchResults: searchResults ?? this.searchResults,
       selectedRoute: selectedRoute ?? this.selectedRoute,
       selectedDrug: selectedDrug ?? this.selectedDrug,
+      selectedSpecies: selectedSpecies ?? this.selectedSpecies,
+      dosePerUnitMass: dosePerUnitMass ?? this.dosePerUnitMass,
+      comment: comment ?? this.comment,
     );
   }
 }
