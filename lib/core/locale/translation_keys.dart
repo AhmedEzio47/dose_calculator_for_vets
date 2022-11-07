@@ -42,4 +42,6 @@ class TranslationKeys {
   static const String notes = 'notes';
   static const String submit = 'submit';
   static const String suggestDrug = 'suggestDrug';
+  static const String termsOfUse = 'termsOfUse';
+  static const String termsOfUseDetails = 'termsOfUseDetails';
 }

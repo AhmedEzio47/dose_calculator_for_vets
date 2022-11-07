@@ -4,6 +4,7 @@ import 'package:dose_calculator_for_vets/presentation/pages/home/home_page.dart'
 import 'package:dose_calculator_for_vets/presentation/pages/how_to_use/how_to_use_page.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/suggest_drug/bloc/suggestion_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/suggest_drug/suggest_drug_page.dart';
+import 'package:dose_calculator_for_vets/presentation/pages/terms_of_use/terms_of_use_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,7 @@ class AppRoutes {
   static const String history = '/history';
   static const String howToUse = '/howToUse';
   static const String suggestDrug = '/suggestDrug';
+  static const String termsOfUse = '/termsOfUse';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     late Map args;
@@ -43,6 +45,8 @@ class AppRoutes {
                 ));
       case AppRoutes.howToUse:
         return MaterialPageRoute(builder: (_) => const HowToUsePage());
+      case AppRoutes.termsOfUse:
+        return MaterialPageRoute(builder: (_) => const TermsOfUsePage());
       default:
         return _errorRoute();
     }

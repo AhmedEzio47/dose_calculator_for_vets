@@ -3,6 +3,7 @@ import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/units/units_bloc.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/species_drop_down.dart';
+import 'package:dose_calculator_for_vets/presentation/routes/app_routes.dart';
 import 'package:dose_calculator_for_vets/presentation/widgets/general_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,22 @@ class _ActivePrincipleBottomSheetState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchActivePrinciplesField(),
+              Row(
+                children: [
+                  Expanded(child: SearchActivePrinciplesField()),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    height: 60,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.suggestDrug),
+                      child: const Icon(Icons.lightbulb),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -70,10 +86,28 @@ class _ActivePrincipleBottomSheetState
                 height: 20,
               ),
               GeneralBtn(
-                  onPressed: () => Navigator.of(context).pop(),
-                  text: AppLocalizations.instance.translate(
-                    TranslationKeys.ok,
-                  ))
+                onPressed: () => Navigator.of(context).pop(),
+                text: AppLocalizations.instance.translate(
+                  TranslationKeys.ok,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: InkWell(
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.termsOfUse),
+                    child: Text(
+                      AppLocalizations.instance
+                          .translate(TranslationKeys.termsOfUse),
+                      style: TextStyles.medium.copyWith(
+                        color: Colors.blue,
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
+                    )),
+              ),
             ],
           ),
         );

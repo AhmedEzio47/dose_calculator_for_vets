@@ -164,8 +164,13 @@ class _HomePageState extends State<HomePage> {
                             height: 50,
                             fontSize: 16,
                             onPressed: () => showModalBottomSheet(
+                                useRootNavigator: true,
+                                isScrollControlled: true,
                                 context: context,
-                                builder: (_) => ActivePrincipleBottomSheet()),
+                                builder: (_) => SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        .65,
+                                    child: ActivePrincipleBottomSheet())),
                             text: AppLocalizations.instance
                                 .translate(TranslationKeys.activePrinciple)),
                       ],
