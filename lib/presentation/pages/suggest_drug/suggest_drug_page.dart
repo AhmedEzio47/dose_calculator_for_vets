@@ -62,6 +62,7 @@ class SuggestDrugPage extends StatelessWidget {
               ),
               EditField(
                 controller: _notesController,
+                lines: 5,
                 hint: '',
                 label:
                     AppLocalizations.instance.translate(TranslationKeys.notes),
