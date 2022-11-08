@@ -44,4 +44,9 @@ class TranslationKeys {
   static const String suggestDrug = 'suggestDrug';
   static const String termsOfUse = 'termsOfUse';
   static const String termsOfUseDetails = 'termsOfUseDetails';
+  static const String rateThisApp = 'rateThisApp';
+  static const String rateThisAppMessage = 'rateThisAppMessage';
+  static const String rate = 'rate';
+  static const String noThanks = 'noThanks';
+  static const String maybeLater = 'maybeLater';
 }

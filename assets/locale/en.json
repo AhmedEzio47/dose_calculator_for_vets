@@ -43,5 +43,10 @@
   "submit" : "Submit",
   "suggestDrug" : "Suggest drug/active principle",
   "termsOfUse" : "Terms of use",
-  "termsOfUseDetails" : "1- The equation used in the calculation is: (Quantity in millimetres * Dose per unit mass in (mg/kg) or (mg/lb) * Animal mass in kilograms (kg) or pounds (lb)) / Drug concentration in milligrams\n\n 2- Active principles data is mainly copied from www.petplace.com\n\n 3- All doses are shown as averages of min & max doses\n\n 4- In some active principles there are comments written in red, if you find a different dose which satisfies your case, please copy it manually to the Dose per unit mass field"
+  "termsOfUseDetails" : "1- The equation used in the calculation is: (Quantity in millimetres * Dose per unit mass in (mg/kg) or (mg/lb) * Animal mass in kilograms (kg) or pounds (lb)) / Drug concentration in milligrams\n\n 2- Active principles data is mainly copied from www.petplace.com\n\n 3- All doses are shown as averages of min & max doses\n\n 4- In some active principles there are comments written in red, if you find a different dose which satisfies your case, please copy it manually to the Dose per unit mass field",
+  "rateThisApp" : "Rate this app",
+  "rateThisAppMessage" : "If you like this app, please take a little bit of your time to review it !\\nIt really helps us and it shouldn\\'t take you more than one minute.",
+  "rate" : "RATE",
+  "noThanks" : "NO THANKS",
+  "maybeLater" : "MAYBE LATER"
 }
