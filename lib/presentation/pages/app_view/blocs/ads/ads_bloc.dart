@@ -15,7 +15,8 @@ class AdsBloc extends Bloc<AdsEvent, AdsState> {
 
   void _onLoadAdUnitEvent(LoadAdUnitEvent event, emit) async {
     final result = await loadAdUnitUseCase(LoadAdUnitParams(event.adId));
-    result.fold((failure) => null,
-        (ad) => emit(AdsState(status: BlocStatus.success, ad: ad)));
+    result.fold((failure) => null, (ad) {
+      emit(AdsState(status: BlocStatus.success, ad: ad));
+    });
   }
 }

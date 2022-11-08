@@ -4,7 +4,6 @@ import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
 import 'package:dose_calculator_for_vets/data/repositories/ads_repo_impl.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_drawer/app_drawer.dart';
-import 'package:dose_calculator_for_vets/presentation/pages/app_view/widgets/rate_app_builder.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/active_principle_bottom_sheet.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/home_header.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/result_dialog.dart';
@@ -14,6 +13,7 @@ import 'package:dose_calculator_for_vets/presentation/widgets/edit_field.dart';
 import 'package:dose_calculator_for_vets/presentation/widgets/general_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../core/utils/formatters.dart';
 import '../app_view/blocs/ads/ads_bloc.dart';
@@ -53,168 +53,175 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return RateAppBuilder(
-      child: Scaffold(
-        drawer: const AppDrawer(),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Builder(builder: (context) {
-            return IconButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                icon: Icon(
-                  Icons.menu,
-                  color: Theme.of(context).iconTheme.color,
-                ));
-          }),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: BlocBuilder<UnitsBloc, UnitsState>(
-            builder: (context, unitsState) {
-              return BlocListener<CalculatorBloc, CalculatorState>(
-                listenWhen: (prev, current) =>
-                    prev.status != current.status ||
-                    prev.calculation != current.calculation ||
-                    prev.dosePerUnitMass != current.dosePerUnitMass,
-                listener: (context, state) {
-                  _dosePerUnitMassController.text = state.dosePerUnitMass;
-                  if (state.status == BlocStatus.success) {
-                    _concentrationController.clear();
-                    _quantityController.clear();
-                    _dosePerUnitMassController.clear();
-                    _animalMassController.clear();
-                    if (state.finalDose != null) {
-                      AppDialog.show(
-                          context: context,
-                          child: ResultDialog(finalDose: state.finalDose!));
-                    }
-                  } else if (state.status == BlocStatus.failure) {
-                    AppSnackBar.show(
-                        context: context,
-                        message: state.failureMessage,
-                        snackBarType: SnackBarTypes.error);
-                  }
-
-                  if (state.calculation != null) {
-                    _concentrationController.text =
-                        state.calculation!.concentration.toString();
-                    _quantityController.text =
-                        state.calculation!.quantity.toString();
-                    _dosePerUnitMassController.text = Formatters.formatDecimals(
-                        AppConstants.massUnit == MassUnitValues.kg
-                            ? state.calculation!.dosePerUnitMass
-                            : state.calculation!.dosePerUnitMass);
-                    _animalMassController.text = Formatters.formatDecimals(
-                        AppConstants.massUnit == MassUnitValues.kg
-                            ? state.calculation!.animalMass
-                            : state.calculation!.animalMass);
-                    setState(() {});
-                  }
-                },
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const HomeHeader(),
-                      EditField(
-                        focusNode: _focusNodes[0],
-                        controller: _concentrationController,
-                        inputAction: TextInputAction.next,
-                        hint: '',
-                        label: AppLocalizations.instance
-                            .translate(TranslationKeys.drugConcentration),
-                        inputType: TextInputType.number,
-                        onSubmit: (val) {
-                          _focusNodes[1].requestFocus();
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      EditField(
-                        focusNode: _focusNodes[1],
-                        controller: _quantityController,
-                        inputAction: TextInputAction.next,
-                        hint: '',
-                        label: AppLocalizations.instance
-                            .translate(TranslationKeys.quantity),
-                        inputType: TextInputType.number,
-                        onSubmit: (val) {
-                          _focusNodes[2].requestFocus();
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: EditField(
-                              focusNode: _focusNodes[2],
-                              controller: _dosePerUnitMassController,
-                              inputAction: TextInputAction.next,
-                              hint: '',
-                              label: AppLocalizations.instance.translate(
-                                TranslationKeys.dosePerUnitMass,
-                                param1: unitsState.toString(),
-                              ),
-                              inputType: TextInputType.number,
-                              onSubmit: (val) {
-                                _focusNodes[3].requestFocus();
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          GeneralBtn(
-                              width: 100,
-                              height: 50,
-                              fontSize: 16,
-                              onPressed: () => showModalBottomSheet(
-                                  useRootNavigator: true,
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (_) => SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .65,
-                                      child: ActivePrincipleBottomSheet())),
-                              text: AppLocalizations.instance
-                                  .translate(TranslationKeys.activePrinciple)),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      EditField(
-                        focusNode: _focusNodes[3],
-                        controller: _animalMassController,
-                        inputAction: TextInputAction.done,
-                        hint: '',
-                        label: AppLocalizations.instance.translate(
-                          TranslationKeys.animalMass,
-                          param1: unitsState.toString(),
-                        ),
-                        inputType: TextInputType.number,
-                        onSubmit: (val) => _calculate(context),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      GeneralBtn(
-                        onPressed: () => _calculate(context),
-                        text: AppLocalizations.instance
-                            .translate(TranslationKeys.calculate),
-                      )
-                    ],
+    return Scaffold(
+      drawer: const AppDrawer(),
+      bottomNavigationBar: BlocBuilder<AdsBloc, AdsState>(
+          builder: (context, state) => state.status == BlocStatus.success
+              ? SizedBox(
+                  height: 70,
+                  width: double.infinity,
+                  child: AdWidget(
+                    ad: state.ad!,
                   ),
+                )
+              : const SizedBox()),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Builder(builder: (context) {
+          return IconButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: Icon(
+                Icons.menu,
+                color: Theme.of(context).iconTheme.color,
+              ));
+        }),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: BlocBuilder<UnitsBloc, UnitsState>(
+          builder: (context, unitsState) {
+            return BlocListener<CalculatorBloc, CalculatorState>(
+              listenWhen: (prev, current) =>
+                  prev.status != current.status ||
+                  prev.calculation != current.calculation ||
+                  prev.dosePerUnitMass != current.dosePerUnitMass,
+              listener: (context, state) {
+                _dosePerUnitMassController.text = state.dosePerUnitMass;
+                if (state.status == BlocStatus.success) {
+                  _concentrationController.clear();
+                  _quantityController.clear();
+                  _dosePerUnitMassController.clear();
+                  _animalMassController.clear();
+                  if (state.finalDose != null) {
+                    AppDialog.show(
+                        context: context,
+                        child: ResultDialog(finalDose: state.finalDose!));
+                  }
+                } else if (state.status == BlocStatus.failure) {
+                  AppSnackBar.show(
+                      context: context,
+                      message: state.failureMessage,
+                      snackBarType: SnackBarTypes.error);
+                }
+
+                if (state.calculation != null) {
+                  _concentrationController.text =
+                      state.calculation!.concentration.toString();
+                  _quantityController.text =
+                      state.calculation!.quantity.toString();
+                  _dosePerUnitMassController.text = Formatters.formatDecimals(
+                      AppConstants.massUnit == MassUnitValues.kg
+                          ? state.calculation!.dosePerUnitMass
+                          : state.calculation!.dosePerUnitMass);
+                  _animalMassController.text = Formatters.formatDecimals(
+                      AppConstants.massUnit == MassUnitValues.kg
+                          ? state.calculation!.animalMass
+                          : state.calculation!.animalMass);
+                  setState(() {});
+                }
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const HomeHeader(),
+                    EditField(
+                      focusNode: _focusNodes[0],
+                      controller: _concentrationController,
+                      inputAction: TextInputAction.next,
+                      hint: '',
+                      label: AppLocalizations.instance
+                          .translate(TranslationKeys.drugConcentration),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) {
+                        _focusNodes[1].requestFocus();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    EditField(
+                      focusNode: _focusNodes[1],
+                      controller: _quantityController,
+                      inputAction: TextInputAction.next,
+                      hint: '',
+                      label: AppLocalizations.instance
+                          .translate(TranslationKeys.quantity),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) {
+                        _focusNodes[2].requestFocus();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: EditField(
+                            focusNode: _focusNodes[2],
+                            controller: _dosePerUnitMassController,
+                            inputAction: TextInputAction.next,
+                            hint: '',
+                            label: AppLocalizations.instance.translate(
+                              TranslationKeys.dosePerUnitMass,
+                              param1: unitsState.toString(),
+                            ),
+                            inputType: TextInputType.number,
+                            onSubmit: (val) {
+                              _focusNodes[3].requestFocus();
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GeneralBtn(
+                            width: 100,
+                            height: 50,
+                            fontSize: 16,
+                            onPressed: () => showModalBottomSheet(
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (_) => SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        .65,
+                                    child: ActivePrincipleBottomSheet())),
+                            text: AppLocalizations.instance
+                                .translate(TranslationKeys.activePrinciple)),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    EditField(
+                      focusNode: _focusNodes[3],
+                      controller: _animalMassController,
+                      inputAction: TextInputAction.done,
+                      hint: '',
+                      label: AppLocalizations.instance.translate(
+                        TranslationKeys.animalMass,
+                        param1: unitsState.toString(),
+                      ),
+                      inputType: TextInputType.number,
+                      onSubmit: (val) => _calculate(context),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    GeneralBtn(
+                      onPressed: () => _calculate(context),
+                      text: AppLocalizations.instance
+                          .translate(TranslationKeys.calculate),
+                    )
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
