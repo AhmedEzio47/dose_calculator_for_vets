@@ -29,6 +29,7 @@ class ResultDialog extends StatelessWidget {
                   TranslationKeys.finalDoseResult,
                   param1: finalDose.toString(),
                 ),
+                textAlign: TextAlign.center,
                 style: TextStyles.semiBold.copyWith(fontSize: 22)),
             const SizedBox(
               height: 24,

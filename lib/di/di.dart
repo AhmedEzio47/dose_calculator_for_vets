@@ -7,9 +7,9 @@ import 'package:get_it/get_it.dart';
 
 GetIt di = GetIt.instance;
 
-void init() async {
+Future init() async {
   initExternals();
-  initDataSources();
+  await initDataSources();
   initRepositories();
   initUseCases();
   initBlocs();

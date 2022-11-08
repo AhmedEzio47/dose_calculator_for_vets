@@ -10,6 +10,7 @@ import 'package:dose_calculator_for_vets/presentation/pages/app_view/blocs/url_l
 import 'package:dose_calculator_for_vets/presentation/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../app_view/blocs/theme/theme_bloc.dart';
 
@@ -58,6 +59,16 @@ class AppDrawer extends StatelessWidget {
             ),
             const Divider(),
             DrawerItem(
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(AppRoutes.suggestDrug);
+              },
+              icon: Icons.lightbulb,
+              text: AppLocalizations.instance
+                  .translate(TranslationKeys.suggestDrug),
+            ),
+            const Divider(),
+            DrawerItem(
               onTap: () => context.read<ThemeBloc>().add(ThemeChangedEvent()),
               icon: Icons.brush,
               text: AppLocalizations.instance
@@ -75,6 +86,14 @@ class AppDrawer extends StatelessWidget {
                 icon: Icons.star,
                 text: AppLocalizations.instance
                     .translate(TranslationKeys.reviewApp),
+              ),
+            const Divider(),
+            if (Platform.isAndroid)
+              DrawerItem(
+                onTap: () => Share.share(AppConstants.playStoreUrl),
+                icon: Icons.share,
+                text: AppLocalizations.instance
+                    .translate(TranslationKeys.shareApp),
               ),
             if (Platform.isAndroid) const Divider(),
             DrawerItem(

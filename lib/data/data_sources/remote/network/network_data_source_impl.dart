@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../../core/exceptions.dart';
-import '../../../core/locale/locale_constants.dart';
-import '../../../core/utils/logger.dart';
+import '../../../../core/exceptions.dart';
+import '../../../../core/locale/locale_constants.dart';
+import '../../../../core/utils/logger.dart';
 import 'network_data_source.dart';
 
 class NetworkDataSourceImpl implements NetworkDataSource {

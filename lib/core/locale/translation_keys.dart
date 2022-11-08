@@ -31,4 +31,22 @@ class TranslationKeys {
   static const String changeMassUnit = 'changeMassUnit';
   static const String howToUse = 'howToUse';
   static const String howToUseDetails = 'howToUseDetails';
+  static const String activePrinciple = 'activePrinciple';
+  static const String route = 'route';
+  static const String searchActivePrinciples = 'searchActivePrinciples';
+  static const String selectRoute = 'selectRoute';
+  static const String selectSpecies = 'selectSpecies';
+  static const String species = 'species';
+  static const String shareApp = 'shareApp';
+  static const String drugName = 'drugName';
+  static const String notes = 'notes';
+  static const String submit = 'submit';
+  static const String suggestDrug = 'suggestDrug';
+  static const String termsOfUse = 'termsOfUse';
+  static const String termsOfUseDetails = 'termsOfUseDetails';
+  static const String rateThisApp = 'rateThisApp';
+  static const String rateThisAppMessage = 'rateThisAppMessage';
+  static const String rate = 'rate';
+  static const String noThanks = 'noThanks';
+  static const String maybeLater = 'maybeLater';
 }
