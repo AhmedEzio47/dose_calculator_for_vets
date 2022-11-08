@@ -2,6 +2,7 @@ import 'package:dose_calculator_for_vets/core/constants/app_constants.dart';
 import 'package:dose_calculator_for_vets/core/constants/enums.dart';
 import 'package:dose_calculator_for_vets/core/locale/app_localization.dart';
 import 'package:dose_calculator_for_vets/core/locale/translation_keys.dart';
+import 'package:dose_calculator_for_vets/data/repositories/ads_repo_impl.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_drawer/app_drawer.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/app_view/widgets/rate_app_builder.dart';
 import 'package:dose_calculator_for_vets/presentation/pages/home/widgets/active_principle_bottom_sheet.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/formatters.dart';
+import '../app_view/blocs/ads/ads_bloc.dart';
 import '../app_view/blocs/units/units_bloc.dart';
 import 'bloc/calculator_bloc.dart';
 
@@ -42,6 +44,12 @@ class _HomePageState extends State<HomePage> {
     FocusNode(),
     FocusNode(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AdsBloc>().add(LoadAdUnitEvent(kHomeAdUnitId));
+  }
 
   @override
   Widget build(BuildContext context) {
