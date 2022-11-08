@@ -14,10 +14,9 @@ import 'package:dose_calculator_for_vets/presentation/widgets/edit_field.dart';
 import 'package:dose_calculator_for_vets/presentation/widgets/general_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../app_view/blocs/ads/ads_bloc.dart';
 import '../../../core/utils/formatters.dart';
+import '../app_view/blocs/ads/ads_bloc.dart';
 import '../app_view/blocs/units/units_bloc.dart';
 import 'bloc/calculator_bloc.dart';
 
